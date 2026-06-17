@@ -1,0 +1,12 @@
+node_modules/
+src/**/*.test.*
+src/**/*.spec.*
+*.log
+.DS_Store
+.vite/
+target/
+pom.xml
+package-lock.json
+yarn.lock
+.idea/
+.vscode/

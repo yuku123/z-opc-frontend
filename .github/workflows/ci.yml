@@ -1,0 +1,26 @@
+name: ci
+
+on:
+  pull_request:
+    paths:
+      - 'z-opc-frontend/**'
+  push:
+    branches: [main]
+    paths:
+      - 'z-opc-frontend/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./z-opc-frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: 'z-opc-frontend/package-lock.json'
+      - run: npm install
+      - run: npm run build

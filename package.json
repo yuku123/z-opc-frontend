@@ -1,0 +1,27 @@
+{
+  "name": "@yuku123/z-opc-frontend",
+  "version": "0.0.0",
+  "private": true,
+  "description": "z-opc 共享前端组件工作区 - 4 个发布到 npm 的子包",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "build:z-frontend-common": "npm run build --workspace=@yuku123/z-frontend-common",
+    "build:z-wf-frontend-component": "npm run build --workspace=@yuku123/z-wf-frontend-component",
+    "build:z-ctc-frontend-component": "npm run build --workspace=@yuku123/z-ctc-frontend-component",
+    "build:z-task-frontend-component": "npm run build --workspace=@yuku123/z-task-frontend-component",
+    "version:patch": "npm version patch --workspaces --no-git-tag-version",
+    "version:minor": "npm version minor --workspaces --no-git-tag-version",
+    "publish:all": "bash scripts/publish-all.sh",
+    "clean": "rm -rf packages/*/dist packages/*/node_modules node_modules"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

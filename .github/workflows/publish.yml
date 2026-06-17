@@ -1,0 +1,38 @@
+name: publish-to-npm
+
+on:
+  push:
+    tags:
+      - 'v*'   # 任何 v 开头的 tag 都会触发
+  workflow_dispatch:   # 也支持手动触发
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install root deps
+        run: npm install
+
+      - name: Build all packages
+        run: |
+          for pkg in packages/*/; do
+            echo "=== build $pkg ==="
+            (cd "$pkg" && npm run build)
+          done
+
+      - name: Publish to npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          for pkg in packages/*/; do
+            echo "=== publish $pkg ==="
+            (cd "$pkg" && npm publish --access public --provenance)
+          done

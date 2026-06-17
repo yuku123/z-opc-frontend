@@ -1,0 +1,42 @@
+{
+  "name": "@yuku123/z-task-frontend-component",
+  "version": "0.1.0",
+  "private": false,
+  "description": "z-task 共享前端组件 - TaskCard 等",
+  "keywords": [
+    "react",
+    "antd",
+    "task",
+    "z-opc"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "zifang",
+    "email": "1340947819@qq.com"
+  },
+  "homepage": "https://github.com/yuku123/z-opc/tree/main/z-task/_frontend_component#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yuku123/z-opc.git",
+    "directory": "z-task/_frontend_component"
+  },
+  "bugs": {
+    "url": "https://github.com/yuku123/z-opc/issues"
+  },
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^6.2.0"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "name": "@yuku123/z-wf-frontend-component",
+  "version": "0.1.0",
+  "private": false,
+  "description": "z-wf FlowDesigner 组件包 - LogicFlow 驱动的可视化流程设计器",
+  "keywords": [
+    "react",
+    "logicflow",
+    "flow-designer",
+    "workflow",
+    "z-opc"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "zifang",
+    "email": "1340947819@qq.com"
+  },
+  "homepage": "https://github.com/yuku123/z-opc/tree/main/z-wf/_frontend_component#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yuku123/z-opc.git",
+    "directory": "z-wf/_frontend_component"
+  },
+  "bugs": {
+    "url": "https://github.com/yuku123/z-opc/issues"
+  },
+  "main": "./dist/z-wf_frontend_component.umd.js",
+  "module": "./dist/z-wf_frontend_component.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/z-wf_frontend_component.es.js",
+      "require": "./dist/z-wf_frontend_component.umd.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "dev": "vite --port 3098",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "peerDependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "dependencies": {
+    "@logicflow/core": "^2.2.3",
+    "@logicflow/extension": "^2.2.3"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "typescript": "^5.3.3",
+    "vite": "^6.2.0"
+  }
+}
