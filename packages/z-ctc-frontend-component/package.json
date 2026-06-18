@@ -1,8 +1,8 @@
 {
   "name": "@yuku123/z-ctc-frontend-component",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": false,
-  "description": "z-ctc 共享前端组件 - TaskCard 等",
+  "description": "z-ctc \u5171\u4eab\u524d\u7aef\u7ec4\u4ef6 - TaskCard \u7b49",
   "keywords": [
     "react",
     "antd",
@@ -14,14 +14,14 @@
     "name": "zifang",
     "email": "1340947819@qq.com"
   },
-  "homepage": "https://github.com/yuku123/z-opc/tree/main/z-ctc/_frontend_component#readme",
+  "homepage": "https://github.com/yuku123/z-opc-frontend/tree/main/packages/z-ctc-frontend-component#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yuku123/z-opc.git",
-    "directory": "z-ctc/_frontend_component"
+    "url": "https://github.com/yuku123/z-opc-frontend.git",
+    "directory": "packages/z-ctc-frontend-component"
   },
   "bugs": {
-    "url": "https://github.com/yuku123/z-opc/issues"
+    "url": "https://github.com/yuku123/z-opc-frontend/issues"
   },
   "main": "./dist/z-ctc-component.umd.js",
   "module": "./dist/z-ctc-component.es.js",

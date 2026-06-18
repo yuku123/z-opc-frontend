@@ -1,8 +1,8 @@
 {
   "name": "@yuku123/z-wf-frontend-component",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
-  "description": "z-wf FlowDesigner 组件包 - LogicFlow 驱动的可视化流程设计器",
+  "description": "z-wf FlowDesigner \u7ec4\u4ef6\u5305 - LogicFlow \u9a71\u52a8\u7684\u53ef\u89c6\u5316\u6d41\u7a0b\u8bbe\u8ba1\u5668",
   "keywords": [
     "react",
     "logicflow",
@@ -15,14 +15,14 @@
     "name": "zifang",
     "email": "1340947819@qq.com"
   },
-  "homepage": "https://github.com/yuku123/z-opc/tree/main/z-wf/_frontend_component#readme",
+  "homepage": "https://github.com/yuku123/z-opc-frontend/tree/main/packages/z-wf-frontend-component#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yuku123/z-opc.git",
-    "directory": "z-wf/_frontend_component"
+    "url": "https://github.com/yuku123/z-opc-frontend.git",
+    "directory": "packages/z-wf-frontend-component"
   },
   "bugs": {
-    "url": "https://github.com/yuku123/z-opc/issues"
+    "url": "https://github.com/yuku123/z-opc-frontend/issues"
   },
   "main": "./dist/z-wf_frontend_component.umd.js",
   "module": "./dist/z-wf_frontend_component.es.js",

@@ -1,18 +1,28 @@
 {
   "name": "@yuku123/z-oss-frontend-component",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "description": "z-oss 模块共享前端组件（抽自 z-opc/z-oss/_frontend）",
-  "keywords": ["react", "antd", "oss", "z-opc"],
+  "keywords": [
+    "react",
+    "antd",
+    "oss",
+    "z-opc"
+  ],
   "license": "MIT",
-  "author": { "name": "zifang", "email": "1340947819@qq.com" },
+  "author": {
+    "name": "zifang",
+    "email": "1340947819@qq.com"
+  },
   "homepage": "https://github.com/yuku123/z-opc-frontend/tree/main/packages/z-oss-frontend-component#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/yuku123/z-opc-frontend.git",
     "directory": "packages/z-oss-frontend-component"
   },
-  "bugs": { "url": "https://github.com/yuku123/z-opc-frontend/issues" },
+  "bugs": {
+    "url": "https://github.com/yuku123/z-opc-frontend/issues"
+  },
   "main": "./dist/z-oss-frontend-component.umd.js",
   "module": "./dist/z-oss-frontend-component.es.js",
   "types": "./dist/index.d.ts",
@@ -22,8 +32,15 @@
       "require": "./dist/z-oss-frontend-component.umd.js"
     }
   },
-  "files": ["dist", "src", "README.md"],
-  "publishConfig": { "access": "public", "registry": "https://registry.npmjs.org/" },
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
     "dev": "vite --port 3091",
     "build": "vite build",

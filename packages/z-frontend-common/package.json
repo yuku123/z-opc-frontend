@@ -1,8 +1,8 @@
 {
   "name": "@yuku123/z-frontend-common",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": false,
-  "description": "z-opc 共享前端组件库 - AppLayout / StatusTag / LoginPage / ErrorBoundary + 统一 createRequest 工厂",
+  "description": "z-opc \u5171\u4eab\u524d\u7aef\u7ec4\u4ef6\u5e93 - AppLayout / StatusTag / LoginPage / ErrorBoundary + \u7edf\u4e00 createRequest \u5de5\u5382",
   "keywords": [
     "react",
     "antd",
@@ -15,14 +15,14 @@
     "name": "zifang",
     "email": "1340947819@qq.com"
   },
-  "homepage": "https://github.com/yuku123/z-opc/tree/main/z-frontend-common#readme",
+  "homepage": "https://github.com/yuku123/z-opc-frontend/tree/main/packages/z-frontend-common#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yuku123/z-opc.git",
-    "directory": "z-frontend-common"
+    "url": "https://github.com/yuku123/z-opc-frontend.git",
+    "directory": "packages/z-frontend-common"
   },
   "bugs": {
-    "url": "https://github.com/yuku123/z-opc/issues"
+    "url": "https://github.com/yuku123/z-opc-frontend/issues"
   },
   "main": "./dist/z-frontend-common.umd.js",
   "module": "./dist/z-frontend-common.es.js",

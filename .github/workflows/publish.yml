@@ -47,8 +47,10 @@ jobs:
       - name: Install dependencies (reproducible, lockfile-driven)
         run: npm ci
 
-      # Build every public workspace. Order doesn't matter for build — none of
-      # the packages have runtime dependencies on each other (only peer deps).
+      # Build every public workspace that has a `build` script. Skip packages
+      # without one (treat them as "publish-only metadata" rather than failing
+      # the whole pipeline). Order doesn't matter for build — none of the
+      # packages have runtime dependencies on each other (only peer deps).
       - name: Build all packages
         run: |
           set -e
@@ -61,6 +63,10 @@ jobs:
                   const p=require(path.resolve('packages',d.name,'package.json'));
                   return p.private!==true && p.name && p.version;
                 })
+                .filter(d=>{
+                  const p=require(path.resolve('packages',d.name,'package.json'));
+                  return p.scripts && typeof p.scripts.build === 'string' && p.scripts.build.length>0;
+                })
                 .map(d=>'packages/'+d.name)
                 .sort()
                 .join('\n')
@@ -68,10 +74,26 @@ jobs:
           ")
           echo "=== packages to build ==="
           echo "$PKGS"
+          BUILT=0; SKIPPED=0
           for pkg in $PKGS; do
             echo "--- build $pkg ---"
             (cd "$pkg" && npm run build)
+            BUILT=$((BUILT+1))
           done
+          # Count skipped for the report
+          ALL_PKGS=$(node -e "
+            const fs=require('fs'),path=require('path');
+            process.stdout.write(String(
+              fs.readdirSync('packages',{withFileTypes:true})
+                .filter(d=>d.isDirectory())
+                .filter(d=>{
+                  const p=require(path.resolve('packages',d.name,'package.json'));
+                  return p.private!==true && p.name && p.version;
+                }).length
+            ));
+          ")
+          SKIPPED=$((ALL_PKGS - BUILT))
+          echo "::notice::built $BUILT packages, skipped $SKIPPED (no build script)"
 
       # Publish in topological order so peer-dep packages (@yuku123/z-frontend-common)
       # are available on the registry before dependents (@yuku123/z-ctc-frontend-component
