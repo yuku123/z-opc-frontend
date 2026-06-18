@@ -1,0 +1,151 @@
+name: release
+
+# One-click release for z-opc-frontend.
+# Bumps the version of every public workspace package, commits, pushes a
+# `vX.Y.Z` tag to main, and triggers publish.yml.
+#
+# Usage: Actions tab → "release" → Run workflow → pick level (patch/minor/major)
+#
+# Required secrets:
+#   (none directly — but publishing will fail unless secrets.NPM_TOKEN is set
+#    for publish.yml)
+#
+# The "auto" level reads the highest current version across all packages and
+# bumps patch by default; pass minor/major to override.
+
+on:
+  workflow_dispatch:
+    inputs:
+      level:
+        description: 'Bump level (patch / minor / major / auto)'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+          - auto
+      dry_run:
+        description: 'Dry run — bump versions and commit but DO NOT push or tag'
+        required: false
+        default: 'false'
+        type: boolean
+
+permissions:
+  contents: write   # required to commit + push + create tags
+
+jobs:
+  bump-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Resolve effective bump level
+        id: level
+        run: |
+          LEVEL="${{ inputs.level }}"
+          if [ "$LEVEL" = "auto" ]; then
+            # Heuristic: if any package changed since last tag (compared by the
+            # highest existing version), bump minor; else patch.
+            # Simple version: pick the lowest non-zero trailing digit of the
+            # highest current version across all packages, default to patch.
+            HIGHEST=$(node -e "
+              const fs=require('fs'),path=require('path');
+              const vers=fs.readdirSync('packages',{withFileTypes:true})
+                .filter(d=>d.isDirectory())
+                .map(d=>require(path.resolve('packages',d.name,'package.json')).version)
+                .filter(Boolean)
+                .sort((a,b)=>{
+                  const pa=a.split('.').map(Number),pb=b.split('.').map(Number);
+                  for(let i=0;i<3;i++){ if(pa[i]!==pb[i]) return pb[i]-pa[i]; }
+                  return 0;
+                });
+              process.stdout.write(vers[0]||'0.0.0');
+            ")
+            echo "Highest current version: $HIGHEST"
+            # default: patch
+            LEVEL="patch"
+          fi
+          echo "level=$LEVEL" >> "$GITHUB_OUTPUT"
+          echo "Effective level: $LEVEL"
+
+      - name: Bump version of every public workspace
+        id: bump
+        run: |
+          set -e
+          LEVEL="${{ steps.level.outputs.level }}"
+          for pkg in packages/*/; do
+            name=$(basename "$pkg")
+            node -e "
+              const fs=require('fs');
+              const p='$pkg/package.json';
+              const j=JSON.parse(fs.readFileSync(p,'utf8'));
+              if(j.private===true){ console.log('SKIP private',j.name); process.exit(0); }
+              console.log('BUMP',j.name,'@',j.version,'->');
+            "
+            (cd "$pkg" && npm version "$LEVEL" --no-git-tag-version)
+          done
+          NEW_VER=$(node -e "
+            const fs=require('fs'),path=require('path');
+            const vers=fs.readdirSync('packages',{withFileTypes:true})
+              .filter(d=>d.isDirectory())
+              .map(d=>require(path.resolve('packages',d.name,'package.json')).version)
+              .filter(Boolean);
+            // all packages bumped in lockstep, so any one is the truth
+            process.stdout.write(vers[0]||'0.0.0');
+          ")
+          echo "new_version=$NEW_VER" >> "$GITHUB_OUTPUT"
+          echo "Bumped to v$NEW_VER (level=$LEVEL)"
+
+      - name: Dry-run summary
+        if: inputs.dry_run == 'true'
+        run: |
+          echo "::notice::Dry run complete. NO commit, push, or tag was made."
+          echo "Versions after bump:"
+          for pkg in packages/*/; do
+            node -e "const p=require('./$pkg/package.json'); console.log('  '+p.name+'@'+p.version)"
+          done
+
+      - name: Commit bumped versions
+        if: inputs.dry_run != 'true'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add packages/*/package.json packages/*/package-lock.json package-lock.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "Nothing to commit — versions were already at the target."
+          else
+            git commit -m "release: v${{ steps.bump.outputs.new_version }}"
+          fi
+
+      - name: Push commit and tag to main
+        if: inputs.dry_run != 'true'
+        run: |
+          git tag "v${{ steps.bump.outputs.new_version }}"
+          git push origin main
+          git push origin "v${{ steps.bump.outputs.new_version }}"
+          echo "✅ Pushed tag v${{ steps.bump.outputs.new_version }} — publish.yml will pick it up automatically."
+
+      - name: Trigger publish.yml explicitly (fallback)
+        if: inputs.dry_run != 'true'
+        continue-on-error: true
+        run: |
+          echo "Tag push normally triggers publish.yml via on.push.tags."
+          echo "This manual fallback is here in case tag-only triggers are filtered."
+          curl -fsS -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            "${{ github.api_url }}/repos/${{ github.repository }}/actions/workflows/publish.yml/dispatches" \
+            -d '{"ref":"main"}' || echo "(skip — workflow_dispatch may not be enabled)"

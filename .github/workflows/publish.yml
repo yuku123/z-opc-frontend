@@ -1,16 +1,32 @@
 name: publish-to-npm
 
+# Standalone z-opc-frontend repo: build all packages and publish to npm.
+# Trigger: any tag matching v* (e.g. v0.1.2) — created either manually with
+# `git tag v0.1.2 && git push --tags`, or by the release.yml workflow.
+# Also supports manual workflow_dispatch for re-running.
+#
+# Required secrets:
+#   NPM_TOKEN — npm Automation token (https://www.npmjs.com/settings/.../tokens)
+#
+# This workflow publishes ALL public packages. To skip a package, mark it
+# `"private": true` in its package.json.
+
 on:
   push:
     tags:
-      - 'v*'   # 任何 v 开头的 tag 都会触发
-  workflow_dispatch:   # 也支持手动触发
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write   # required for npm publish --provenance (OIDC)
 
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -18,21 +34,91 @@ jobs:
           node-version: '18'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Install root deps
-        run: npm install
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            **/node_modules
+          key: ${{ runner.os }}-npm-publish-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-publish-
 
+      - name: Install dependencies (reproducible, lockfile-driven)
+        run: npm ci
+
+      # Build every public workspace. Order doesn't matter for build — none of
+      # the packages have runtime dependencies on each other (only peer deps).
       - name: Build all packages
         run: |
-          for pkg in packages/*/; do
-            echo "=== build $pkg ==="
+          set -e
+          PKGS=$(node -e "
+            const fs=require('fs'),path=require('path');
+            process.stdout.write(
+              fs.readdirSync('packages',{withFileTypes:true})
+                .filter(d=>d.isDirectory())
+                .filter(d=>{
+                  const p=require(path.resolve('packages',d.name,'package.json'));
+                  return p.private!==true && p.name && p.version;
+                })
+                .map(d=>'packages/'+d.name)
+                .sort()
+                .join('\n')
+            );
+          ")
+          echo "=== packages to build ==="
+          echo "$PKGS"
+          for pkg in $PKGS; do
+            echo "--- build $pkg ---"
             (cd "$pkg" && npm run build)
           done
 
-      - name: Publish to npm
+      # Publish in topological order so peer-dep packages (@yuku123/z-frontend-common)
+      # are available on the registry before dependents (@yuku123/z-ctc-frontend-component
+      # peer-deps on z-frontend-common). Simple approach: publish z-frontend-common first,
+      # then everything else.
+      - name: Publish all packages to npm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          for pkg in packages/*/; do
-            echo "=== publish $pkg ==="
+          set -e
+          PKGS=$(node -e "
+            const fs=require('fs'),path=require('path');
+            process.stdout.write(
+              fs.readdirSync('packages',{withFileTypes:true})
+                .filter(d=>d.isDirectory())
+                .filter(d=>{
+                  const p=require(path.resolve('packages',d.name,'package.json'));
+                  return p.private!==true && p.name && p.version;
+                })
+                .map(d=>'packages/'+d.name)
+                .sort((a,b)=>{
+                  // z-frontend-common first; others alphabetical
+                  const ax=a.includes('z-frontend-common')?0:1;
+                  const bx=b.includes('z-frontend-common')?0:1;
+                  return ax-bx || a.localeCompare(b);
+                })
+                .join('\n')
+            );
+          ")
+          echo "=== packages to publish ==="
+          echo "$PKGS"
+          for pkg in $PKGS; do
+            echo ""
+            echo "--- publishing $pkg ---"
             (cd "$pkg" && npm publish --access public --provenance)
           done
+
+      - name: Publish success notification
+        if: success()
+        run: |
+          echo "✅ Published z-opc-frontend packages to https://registry.npmjs.org/"
+          echo "Tag: ${GITHUB_REF_NAME}"
+
+      - name: Publish failure notification
+        if: failure()
+        run: |
+          echo "❌ Publish failed. Common causes:"
+          echo "  - Version already exists on npm (bump the version and re-tag)"
+          echo "  - NPM_TOKEN is missing or expired (need an Automation token)"
+          echo "  - Build failed in one of the packages — check the build step logs"

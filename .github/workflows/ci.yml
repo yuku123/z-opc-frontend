@@ -1,26 +1,40 @@
 name: ci
 
+# Standalone z-opc-frontend repo (npm workspaces monorepo).
+# Triggers on PR and push to main; runs install + build to validate.
+
 on:
   pull_request:
-    paths:
-      - 'z-opc-frontend/**'
   push:
     branches: [main]
-    paths:
-      - 'z-opc-frontend/**'
+
+permissions:
+  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./z-opc-frontend
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'npm'
-          cache-dependency-path: 'z-opc-frontend/package-lock.json'
-      - run: npm install
-      - run: npm run build
+
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            **/node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build all packages
+        run: npm run build
