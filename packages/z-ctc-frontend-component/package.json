@@ -23,17 +23,39 @@
   "bugs": {
     "url": "https://github.com/yuku123/z-opc/issues"
   },
-  "main": "./dist/index.cjs.js",
-  "module": "./dist/index.es.js",
+  "main": "./dist/z-ctc-component.umd.js",
+  "module": "./dist/z-ctc-component.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/z-ctc-component.es.js",
+      "require": "./dist/z-ctc-component.umd.js"
+    }
+  },
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
     "src",
     "README.md"
   ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:es": "vite build --config vite.es.config.js",
+    "preview": "vite preview"
+  },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
+  },
+  "peerDependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "antd": "^6.3.3",
+    "@ant-design/icons": "^6.1.0",
+    "@yuku123/z-frontend-common": "^0.1.0"
+  },
+  "dependencies": {
+    "axios": "^1.16.1"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",
