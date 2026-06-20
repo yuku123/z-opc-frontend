@@ -11,7 +11,11 @@
       "require": "./dist/z-project-frontend-component.umd.js"
     }
   },
-  "files": ["dist", "src", "README.md"],
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build"

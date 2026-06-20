@@ -2,7 +2,7 @@
   "name": "@yuku123/z-task-frontend-component",
   "version": "0.1.2",
   "private": false,
-  "description": "z-task \u5171\u4eab\u524d\u7aef\u7ec4\u4ef6 - TaskCard \u7b49",
+  "description": "z-task 共享前端组件 - TaskCard 等",
   "keywords": [
     "react",
     "antd",
@@ -23,8 +23,8 @@
   "bugs": {
     "url": "https://github.com/yuku123/z-opc-frontend/issues"
   },
-  "main": "./dist/index.cjs.js",
-  "module": "./dist/index.es.js",
+  "main": "./dist/z-task-frontend-component.umd.js",
+  "module": "./dist/z-task-frontend-component.es.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",

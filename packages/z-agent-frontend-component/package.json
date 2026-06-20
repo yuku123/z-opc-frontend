@@ -72,5 +72,6 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",
     "vite": "^6.2.0"
-  }
+  },
+  "style": "./dist/z-agent-frontend-component.css"
 }
