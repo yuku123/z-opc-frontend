@@ -12,6 +12,7 @@
     "build:z-wf-frontend-component": "npm run build --workspace=@yuku123/z-wf-frontend-component",
     "build:z-ctc-frontend-component": "npm run build --workspace=@yuku123/z-ctc-frontend-component",
     "build:z-task-frontend-component": "npm run build --workspace=@yuku123/z-task-frontend-component",
+    "build:z-ops-frontend-component": "npm run build --workspace=@yuku123/z-ops-frontend-component",
     "version:patch": "npm version patch --workspaces --no-git-tag-version",
     "version:minor": "npm version minor --workspaces --no-git-tag-version",
     "publish:all": "bash scripts/publish-all.sh",

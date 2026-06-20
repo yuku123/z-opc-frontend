@@ -1,0 +1,81 @@
+.dashboard {
+    padding: 0;
+}
+
+.stats-cards {
+    margin-bottom: 16px;
+}
+
+.stats-cards .ant-card {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s;
+}
+
+.stats-cards .ant-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.success-rate {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #8c8c8c;
+}
+
+.charts-row {
+    margin-bottom: 16px;
+}
+
+.charts-row .ant-card {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.bottom-row {
+    margin-bottom: 16px;
+}
+
+.bottom-row .ant-card {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    min-height: 400px;
+}
+
+.timeline-item {
+    margin-bottom: 4px;
+}
+
+.timeline-item .time {
+    font-size: 12px;
+    color: #8c8c8c;
+    margin-bottom: 4px;
+}
+
+.timeline-item .content {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.timeline-item .job-name {
+    font-weight: 500;
+    color: #262626;
+}
+
+.timeline-item .duration {
+    font-size: 12px;
+    color: #8c8c8c;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .dashboard {
+        padding: 0;
+    }
+
+    .stats-cards .ant-col {
+        margin-bottom: 16px;
+    }
+}

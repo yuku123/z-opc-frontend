@@ -1,0 +1,46 @@
+{
+  "name": "@yuku123/z-ops-frontend-component",
+  "version": "0.1.0",
+  "private": false,
+  "description": "z-ops 共享前端组件 - 运维中心/资源管理/研发协同页面组件",
+  "keywords": ["react", "antd", "ops", "deployment", "z-opc"],
+  "license": "MIT",
+  "author": {
+    "name": "zifang",
+    "email": "1340947819@qq.com"
+  },
+  "homepage": "https://github.com/yuku123/z-opc-frontend/tree/main/packages/z-ops-frontend-component#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yuku123/z-opc-frontend.git",
+    "directory": "packages/z-ops-frontend-component"
+  },
+  "main": "./dist/z-ops-component.es.js",
+  "module": "./dist/z-ops-component.es.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist", "src", "README.md"],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18",
+    "antd": ">=5",
+    "@ant-design/icons": ">=5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^6.2.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "antd": "^6.0.0",
+    "@ant-design/icons": "^6.0.0",
+    "axios": "^1.7.0"
+  }
+}

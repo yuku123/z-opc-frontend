@@ -1,6 +1,6 @@
 {
   "name": "@yuku123/z-meta-frontend-component",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": false,
   "description": "z-meta 模块共享前端组件（抽自 z-opc/z-meta/_frontend）",
   "keywords": [

@@ -1,1 +1,11 @@
 export {default as ConfigStatusBadge} from './ConfigStatusBadge'
+// 4A 中心 / 配置中心 业务页面
+export {default as ConfigList} from './pages/ConfigList'
+export {default as ConfigEdit} from './pages/ConfigEdit'
+export {default as ConfigHistory} from './pages/ConfigHistory'
+export {default as ConfigDashboard} from './pages/Dashboard'
+export {default as ConfigOverview} from './pages/Overview'
+export {default as ConfigCluster} from './pages/cluster'
+export {default as ServiceList} from './pages/ServiceList'
+export {default as ServiceDetail} from './pages/ServiceDetail'
+export {default as ConfigApp} from './pages/ConfigApp'

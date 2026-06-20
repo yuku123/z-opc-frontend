@@ -1,6 +1,6 @@
 {
   "name": "@yuku123/z-agent-frontend-component",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "description": "z-agent 共享前端组件 - Agent 应用 / 编辑器 / 工作流 / LLM / AK / MCP / OSS / Skill / Script / Product / Usage 等页面",
   "keywords": [

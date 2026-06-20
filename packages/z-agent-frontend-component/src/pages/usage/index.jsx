@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import {Card, Col, Row, Select, Statistic, Table, Tabs, Tag, Typography} from 'antd'
 import {BarChartOutlined, DollarOutlined, RocketOutlined} from '@ant-design/icons'
-import request from '../../api'
+import request from '@/services/request'
 import ReactECharts from 'echarts-for-react'
 
 const {Text} = Typography

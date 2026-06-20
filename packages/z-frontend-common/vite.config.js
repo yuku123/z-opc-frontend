@@ -21,15 +21,17 @@ export default defineConfig({
             fileName: (format) => `z-frontend-common.${format}.js`,
         },
         rollupOptions: {
-            external: ['react', 'react-dom', 'antd', '@ant-design/icons', 'react-router-dom', 'axios'],
+            external: ['react', 'react-dom', 'antd', '@ant-design/icons', '@ant-design/pro-components', 'react-router-dom', 'axios', 'dayjs'],
             output: {
                 globals: {
                     react: 'React',
                     'react-dom': 'ReactDOM',
                     antd: 'antd',
                     '@ant-design/icons': 'icons',
+                    '@ant-design/pro-components': 'ProComponents',
                     'react-router-dom': 'ReactRouterDOM',
                     axios: 'axios',
+                    'dayjs': 'dayjs',
                 },
             },
         },

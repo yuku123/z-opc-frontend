@@ -1,6 +1,6 @@
 {
   "name": "@yuku123/z-ext-frontend-component",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": false,
   "description": "z-ext 模块共享前端组件（抽自 z-opc/z-ext/_frontend）",
   "keywords": [

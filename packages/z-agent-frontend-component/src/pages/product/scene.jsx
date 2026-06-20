@@ -29,13 +29,14 @@ import {
     EditOutlined,
     EyeOutlined,
     NodeIndexOutlined,
+    NodeOutlined,
     PlayCircleOutlined,
     PlusOutlined,
     SettingOutlined,
     StopOutlined,
     ThunderboltOutlined
 } from '@ant-design/icons'
-import {productApi, sceneApi} from '../../api'
+import {productApi, sceneApi} from '../../../services/api'
 
 const {TextArea} = Input
 const {Option} = Select

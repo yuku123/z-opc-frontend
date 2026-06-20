@@ -21,13 +21,15 @@ export default defineConfig({
             fileName: (format) => `z-ctc-component.${format}.js`,
         },
         rollupOptions: {
-            external: ['react', 'react-dom', 'antd', '@ant-design/icons', '@yuku123/z-frontend-common'],
+            external: ['react', 'react-dom', 'antd', '@ant-design/icons', '@ant-design/pro-components', 'dayjs', '@yuku123/z-frontend-common'],
             output: {
                 globals: {
                     react: 'React',
                     'react-dom': 'ReactDOM',
                     antd: 'antd',
                     '@ant-design/icons': 'icons',
+                    '@ant-design/pro-components': 'ProComponents',
+                    'dayjs': 'dayjs',
                     '@yuku123/z-frontend-common': 'ZCtcFrontendCommon',
                 },
             },

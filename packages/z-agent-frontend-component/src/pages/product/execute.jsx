@@ -31,7 +31,7 @@ import {
     ThunderboltOutlined,
     UserOutlined
 } from '@ant-design/icons'
-import {productApi, sceneApi} from '../../api'
+import {productApi, sceneApi} from '../../../services/api'
 
 const {TextArea} = Input
 const {Text, Title} = Typography
@@ -170,7 +170,7 @@ const SceneExecutorPage = () => {
                 }
             }
 
-            sse.onerror = async () => {
+            sse.onerror = () => {
                 // 如果是简单非流式响应，尝试普通调用
                 sse.close()
                 setStreaming(false)
