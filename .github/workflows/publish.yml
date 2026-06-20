@@ -68,7 +68,12 @@ jobs:
                   return p.scripts && typeof p.scripts.build === 'string' && p.scripts.build.length>0;
                 })
                 .map(d=>'packages/'+d.name)
-                .sort()
+                .sort((a,b)=>{
+                  // z-frontend-common must be built first (other packages depend on its dist)
+                  if (a.includes('z-frontend-common')) return -1;
+                  if (b.includes('z-frontend-common')) return 1;
+                  return a.localeCompare(b);
+                })
                 .join('\n')
             );
           ")
