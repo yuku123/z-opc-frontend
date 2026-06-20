@@ -1,6 +1,6 @@
 {
   "name": "@yuku123/z-project-frontend-component",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "description": "z-project 项目中心业务组件",
   "main": "./dist/z-project-frontend-component.umd.js",
