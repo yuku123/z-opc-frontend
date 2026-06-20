@@ -29,7 +29,6 @@ import {
     EditOutlined,
     EyeOutlined,
     NodeIndexOutlined,
-    NodeOutlined,
     PlayCircleOutlined,
     PlusOutlined,
     SettingOutlined,
@@ -235,7 +234,7 @@ const SceneTablePage = () => {
             width: 100,
             render: (val) => {
                 const map = {CONVERSATION: '对话', TASK: '任务', WORKFLOW: '工作流'}
-                return <Tag icon={<NodeOutlined/>}>{map[val] || val}</Tag>
+                return <Tag icon={<NodeIndexOutlined/>}>{map[val] || val}</Tag>
             }
         },
         {
