@@ -31,5 +31,14 @@
     "@ant-design/icons": "^6.1.0",
     "dayjs": "^1.11.0",
     "react-router-dom": "^7.13.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yuku123/z-opc-frontend.git",
+    "directory": "packages/z-project-frontend-component"
+  },
+  "homepage": "https://github.com/yuku123/z-opc-frontend/tree/main/packages/z-project-frontend-component#readme",
+  "bugs": {
+    "url": "https://github.com/yuku123/z-opc-frontend/issues"
   }
 }

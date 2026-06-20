@@ -29,5 +29,14 @@
     "react-dom": "^19.2.0",
     "antd": "^6.3.3",
     "@ant-design/icons": "^6.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yuku123/z-opc-frontend.git",
+    "directory": "packages/z-subscribe-frontend-component"
+  },
+  "homepage": "https://github.com/yuku123/z-opc-frontend/tree/main/packages/z-subscribe-frontend-component#readme",
+  "bugs": {
+    "url": "https://github.com/yuku123/z-opc-frontend/issues"
   }
 }
