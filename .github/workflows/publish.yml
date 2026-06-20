@@ -44,8 +44,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-npm-publish-
 
-      - name: Install dependencies (reproducible, lockfile-driven)
-        run: npm ci
+      - name: Install dependencies (lockfile as input, workspace-compatible)
+        run: npm install --no-audit --no-fund
 
       # Build every public workspace that has a `build` script. Skip packages
       # without one (treat them as "publish-only metadata" rather than failing

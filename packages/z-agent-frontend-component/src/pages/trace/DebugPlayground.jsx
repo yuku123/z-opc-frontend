@@ -42,7 +42,7 @@ import MetricsDashboard from './components/MetricsDashboard';
 import Timeline from './components/Timeline';
 import ToolCallTree from './components/ToolCallTree';
 import RagFragments from './components/RagFragments';
-import {traceApi} from '../../../services/api';
+import {traceApi} from '@/api';
 
 const {Sider, Content} = Layout;
 const {Text, Title} = Typography;

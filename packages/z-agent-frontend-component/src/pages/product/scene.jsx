@@ -36,7 +36,7 @@ import {
     StopOutlined,
     ThunderboltOutlined
 } from '@ant-design/icons'
-import {productApi, sceneApi} from '../../../services/api'
+import {productApi, sceneApi} from '@/api'
 
 const {TextArea} = Input
 const {Option} = Select
