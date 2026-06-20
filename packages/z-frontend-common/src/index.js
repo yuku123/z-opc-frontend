@@ -5,6 +5,7 @@ export {default as ErrorBoundary} from './components/ErrorBoundary'
 export {default as Overview} from './components/Overview'
 export {default as request} from './utils/request'
 export {authRequest, createRequest, setupInterceptors} from './utils/request'
+export {ctcRequest} from './services/request'
 
 // 4A 中心 Layout + 登录
 export {default as CtcLayout} from './components/Ctc/Layout'
